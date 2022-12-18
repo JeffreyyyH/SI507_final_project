@@ -121,15 +121,19 @@ if __name__ == "__main__":
             soup = BeautifulSoup(strhtml.text,'lxml')
             data_builds = soup.select('#builds > div > div > div > div > div > div > img')
             data_teams = soup.select('#teams > div > div > div > a > img.character-icon') 
-            result[i]['builds'] = str(data_builds)    
+            build = []
+            for k in data_builds:
+                build.append(k.get('alt'))
+            result[i]['builds'] = build   
+
             teams = {}
             for j in range(0, len(data_teams)):
                 if j%4 == 0:
                     teams[j//4] = []
-                    teams[j//4].append(data_teams[j]) 
+                    teams[j//4].append(data_teams[j].get('alt'))
                 else:
-                    teams[j//4].append(data_teams[j]) 
-            result[i]['teams']  = str(teams)     
+                    teams[j//4].append(data_teams[j].get('alt')) 
+            result[i]['teams']  = teams     
             print("proceeding")
         Genshin_data['Character'] = result
 
@@ -146,28 +150,44 @@ if __name__ == "__main__":
         for i in range(0, len(data_top_teams)):
             if i%4 == 0:
                 top_teams[i//4] = []
-                top_teams[i//4].append(str(data_top_teams[i])) 
+                top_teams[i//4].append(data_top_teams[i].get('alt'))
             else:
-                top_teams[i//4].append(str(data_top_teams[i]))                    
+                top_teams[i//4].append(data_top_teams[i].get('alt'))                    
 
         Genshin_data['top_teams'] = top_teams
         #print(top_teams)
 
 
-    #data_tier
+    #data_tier    
     if 'tier_list' in genshin_CACHE.keys():
         Genshin_data['tier_list'] = genshin_CACHE['tier_list']
-    else:
-        data_tier = {}
+    else:        
+        data_tier = []
         url_tier_list = 'https://genshin.gg/tier-list/'
         strhtml_tier = requests.get(url_tier_list)
         soup_tier = BeautifulSoup(strhtml_tier.text,'lxml')
-        data_tier['SS+'] = str(soup_tier.select('#root > div > section > div.row > main > div:nth-child(6) > div.tier-list > a > img.character-icon'))
-        data_tier['S+'] = str(soup_tier.select('#root > div > section > div.row > main > div:nth-child(7) > div.tier-list > a > img.character-icon'))
-        data_tier['S'] = str(soup_tier.select('#root > div > section > div.row > main > div:nth-child(8) > div.tier-list > a > img.character-icon'))
-        data_tier['A'] = str(soup_tier.select('#root > div > section > div.row > main > div:nth-child(11) > div.tier-list > a > img.character-icon'))
-        data_tier['B'] = str(soup_tier.select('#root > div > section > div.row > main > div:nth-child(12) > div.tier-list > a > img.character-icon'))
-        data_tier['C'] = str(soup_tier.select('#root > div > section > div.row > main > div:nth-child(13) > div.tier-list > a > img.character-icon'))
-        Genshin_data['tier_list'] = data_tier
+
+        data_tier.append(soup_tier.select('#root > div > section > div.row > main > div:nth-child(6) > div.tier-list > a > img.character-icon'))
+        data_tier.append(soup_tier.select('#root > div > section > div.row > main > div:nth-child(7) > div.tier-list > a > img.character-icon'))
+        data_tier.append(soup_tier.select('#root > div > section > div.row > main > div:nth-child(8) > div.tier-list > a > img.character-icon'))
+        data_tier.append(soup_tier.select('#root > div > section > div.row > main > div:nth-child(11) > div.tier-list > a > img.character-icon'))
+        data_tier.append(soup_tier.select('#root > div > section > div.row > main > div:nth-child(12) > div.tier-list > a > img.character-icon'))
+        data_tier.append(soup_tier.select('#root > div > section > div.row > main > div:nth-child(13) > div.tier-list > a > img.character-icon'))
+        
+        tier_result = {}
+        for i in range(0, len(data_tier)):
+            add = []
+            for j in data_tier[i]:
+                add.append(j.get('alt'))
+            tier_result[f'{i}'] = add
+
+        Genshin_data['tier_list'] = tier_result
     #print(Genshin_data)
     save_cache(Genshin_data)
+
+        #data_tier['SS+'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(6) > div.tier-list > a > img.character-icon')
+        #data_tier['S+'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(7) > div.tier-list > a > img.character-icon')
+        #data_tier['S'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(8) > div.tier-list > a > img.character-icon')
+        #data_tier['A'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(11) > div.tier-list > a > img.character-icon')
+        #data_tier['B'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(12) > div.tier-list > a > img.character-icon')
+        #data_tier['C'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(13) > div.tier-list > a > img.character-icon')
