@@ -1,6 +1,6 @@
 # SI507_final_project
 
-Special requirements and required packages: “None”
+Special requirements and required packages: BeautifulSoup
 
 Data structure: 
 The data is divided into three parts(character builds, top teams and tier list).
