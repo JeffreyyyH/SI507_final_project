@@ -182,12 +182,5 @@ if __name__ == "__main__":
             tier_result[f'{i}'] = add
 
         Genshin_data['tier_list'] = tier_result
-    #print(Genshin_data)
+    
     save_cache(Genshin_data)
-
-        #data_tier['SS+'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(6) > div.tier-list > a > img.character-icon')
-        #data_tier['S+'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(7) > div.tier-list > a > img.character-icon')
-        #data_tier['S'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(8) > div.tier-list > a > img.character-icon')
-        #data_tier['A'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(11) > div.tier-list > a > img.character-icon')
-        #data_tier['B'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(12) > div.tier-list > a > img.character-icon')
-        #data_tier['C'] = soup_tier.select('#root > div > section > div.row > main > div:nth-child(13) > div.tier-list > a > img.character-icon')
