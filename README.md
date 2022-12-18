@@ -1,4 +1,5 @@
 # SI507_final_project
+
 Data structure: 
 The data is divided into three parts(character builds, top teams and tier list).
 Under Character builds, there are 1.character picture 2.element type 3.weapon type 4.suitable weapons 5.suitable artifacts 6.suitable teams
