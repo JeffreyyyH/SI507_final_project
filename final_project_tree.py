@@ -34,8 +34,6 @@ def Character_builds(answer, data):
                 elif int(answer_1) == 5:
                     suitable_artifaccters = data['Character'][int(answer)]['builds'][2:] 
                     print(f'The suitable artifacts for {character_name} is {suitable_artifaccters}')
-                    answer_3 = input("Do you want to know the scores of the team?")
-
                 elif int(answer_1) == 6:
                     suitable_teams = data['Character'][int(answer)]['teams'] 
                     print(f'The suitable teams for {character_name} is {suitable_teams}')
